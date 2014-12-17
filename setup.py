@@ -11,7 +11,7 @@ except ImportError:
 
 install_requires = ['Django', 'restkit','simplejson', 'djangorestframework']
 
-if sys.version_info[0] == 2:
+if sys.version_info < (3,4):
     install_requires.append('wsgiref')
 
 setup(
