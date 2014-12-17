@@ -32,6 +32,10 @@ Supported versions
 - Django 1.4, 1.5, 1.6, 1.7
 - Python 2.6, 2.7
 
+Testing on:
+- Python 3.4
+
+
 
 Installation
 ============
