@@ -8,6 +8,11 @@ except ImportError:
     ez_setup.use_setuptools()
     from setuptools import setup, find_packages
 
+install_requires = ['Django', 'restkit','simplejson', 'djangorestframework']
+
+if sys.version_info[0] == 2:
+    install_requires.append('wsgiref')
+
 setup(
     name='django-roa',
     version='1.8.1',
@@ -29,13 +34,7 @@ setup(
         'Programming Language :: Python',
         'Topic :: Internet :: WWW/HTTP',
     ],
-    install_requires=[
-        'Django',
-        'restkit',
-        'wsgiref',
-        'simplejson',
-        'djangorestframework'
-    ],
+    install_requires=install_requires,
     tests_require={
         'Piston-tests': ['django-piston'],
     }
