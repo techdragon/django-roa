@@ -1,4 +1,3 @@
-from builtins import object
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.template.defaultfilters import slugify
@@ -134,7 +133,7 @@ class RemotePageWithNamedRelations(Model):
 
 class RemotePageWithProxy(RemotePage):
 
-    class Meta(object):
+    class Meta:
         proxy = True
 
     @staticmethod
@@ -154,7 +153,7 @@ class RemotePageWithCustomPrimaryKey(Model):
 
 class RemotePageWithCustomPrimaryKeyCountOverridden(RemotePageWithCustomPrimaryKey):
 
-    class Meta(object):
+    class Meta:
         proxy = True
 
     def get_resource_url_count(self):

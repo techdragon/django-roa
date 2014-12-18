@@ -27,7 +27,6 @@ Note: do not try to launch tests' projects if you put ``django_roa``
 application into your own project, otherwise it will fail. Django do not
 handle very well projects inside projects.
 """
-from builtins import str
 from datetime import time, date, datetime
 
 from django.test import TestCase

@@ -1,3 +1,5 @@
+from builtins import str
+from builtins import object
 from rest_framework import viewsets
 from django.db import models
 from functools import reduce
@@ -35,7 +37,7 @@ class FilterByKeyMixin(object):
         Parses QUERY_PARAMS and apply them
         """
 
-        for param in self.request.QUERY_PARAMS.keys():
+        for param in list(self.request.QUERY_PARAMS.keys()):
             # filter ?
             if param.startswith(self.filter_param_prefix):
                 key_ = param.split(self.filter_param_prefix)[1]

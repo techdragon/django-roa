@@ -1,5 +1,9 @@
+from future import standard_library
+standard_library.install_aliases()
+from builtins import next
+from builtins import object
 import logging
-from StringIO import StringIO
+from io import StringIO
 
 from django.conf import settings
 from django.db.models import query
@@ -94,7 +98,7 @@ class Query(object):
         parameters = {}
 
         # Filtering
-        for k, v in self.filters.iteritems():
+        for k, v in self.filters.items():
             key = '%s%s' % (ROA_ARGS_NAMES_MAPPING.get('FILTER_', 'filter_'), k)
             # v could be an object
             try:
@@ -106,7 +110,7 @@ class Query(object):
                 parameters[ROA_ARGS_NAMES_MAPPING[key]] = v
             else:
                 parameters[key] = v
-        for k, v in self.excludes.iteritems():
+        for k, v in self.excludes.items():
             key = '%s%s' % (ROA_ARGS_NAMES_MAPPING.get('EXCLUDE_', 'exclude_'), k)
             if key in ROA_ARGS_NAMES_MAPPING:
                 parameters[ROA_ARGS_NAMES_MAPPING[key]] = v
@@ -321,16 +325,16 @@ class RemoteQuerySet(query.QuerySet):
         custom_pk = self.model._meta.pk.attname
         # search PK, ID or custom PK attribute name for exact match and get set
         # of unique matches
-        attributes_set = set(attr for attr in ['id__exact', 'pk__exact', '%s__exact' % custom_pk] if attr in kwargs.keys())
+        attributes_set = set(attr for attr in ['id__exact', 'pk__exact', '%s__exact' % custom_pk] if attr in list(kwargs.keys()))
         exact_match = list(attributes_set)
         # common way of getting particular object
-        if kwargs.keys() == ['id']:
+        if list(kwargs.keys()) == ['id']:
             return self._get_from_id_or_pk(id=kwargs['id'])
         # useful for admin which relies on PKs
-        elif kwargs.keys() == ['pk']:
+        elif list(kwargs.keys()) == ['pk']:
             return self._get_from_id_or_pk(pk=kwargs['pk'])
         # check the case of PK attribute with custom name
-        elif kwargs.keys() == [custom_pk]:
+        elif list(kwargs.keys()) == [custom_pk]:
             return self._get_from_id_or_pk(pk=kwargs[custom_pk])
         # check if there's an exact match filter
         elif len(exact_match) == 1:
@@ -433,7 +437,7 @@ class RemoteQuerySet(query.QuerySet):
         depth = kwargs.pop('depth', 0)
         if kwargs:
             raise TypeError('Unexpected keyword arguments to select_related: %s'
-                    % (kwargs.keys(),))
+                    % (list(kwargs.keys()),))
         obj = self._clone()
         if fields:
             if depth:

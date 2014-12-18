@@ -1,11 +1,10 @@
-from builtins import object
 from django.db import models
 from django_roa import Model as ROAModel
 
 
 class CommonROAModel(ROAModel):
 
-    class Meta(object):
+    class Meta:
         abstract = True
 
     @classmethod

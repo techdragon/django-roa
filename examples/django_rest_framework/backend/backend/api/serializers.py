@@ -1,3 +1,4 @@
+from builtins import object
 from rest_framework import serializers
 from .models import Account, Reporter, Article, Tag
 
@@ -9,28 +10,28 @@ from .models import Account, Reporter, Article, Tag
 
 
 class AccountSerializer(serializers.ModelSerializer):
-    class Meta:
+    class Meta(object):
         model = Account
         fields = ('id', 'email')
 
 
 class ReporterSerializer(serializers.ModelSerializer):
     account = AccountSerializer()
-    class Meta:
+    class Meta(object):
         model = Reporter
         fields = ('id', 'account', 'first_name', 'last_name')
 
 
 class ArticleSerializer(serializers.ModelSerializer):
     reporter = ReporterSerializer()
-    class Meta:
+    class Meta(object):
         model = Article
         fields = ('id', 'headline', 'pub_date', 'reporter')
 
 
 class TagSerializer(serializers.ModelSerializer):
     articles = ArticleSerializer(many=True)
-    class Meta:
+    class Meta(object):
         model = Tag
         fields = ('id', 'label', 'articles')
 
@@ -42,14 +43,14 @@ class TagSerializer(serializers.ModelSerializer):
 
 
 class ReversedTagSerializer(serializers.ModelSerializer):
-    class Meta:
+    class Meta(object):
         model = Tag
         fields = ('id', 'label')
 
 
 class ReversedArticleSerializer(serializers.ModelSerializer):
     tags = ReversedTagSerializer(many=True)
-    class Meta:
+    class Meta(object):
         model = Article
         fields = ('id', 'headline', 'pub_date', 'tags')
 
@@ -57,14 +58,14 @@ class ReversedArticleSerializer(serializers.ModelSerializer):
 class ReversedReporterSerializer(serializers.ModelSerializer):
     articles = ReversedArticleSerializer()
 
-    class Meta:
+    class Meta(object):
         model = Reporter
         fields = ('id', 'first_name', 'last_name', 'articles')
 
 
 class ReversedAccountSerializer(serializers.ModelSerializer):
     reporter = ReversedReporterSerializer()
-    class Meta:
+    class Meta(object):
         model = Account
         fields = ('id', 'email', 'reporter')
 

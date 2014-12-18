@@ -1,10 +1,7 @@
-from future import standard_library
-standard_library.install_aliases()
-from builtins import str
 import sys
 import copy
 import logging
-from io import StringIO
+from StringIO import StringIO
 from django.utils import six
 
 import django
@@ -33,7 +30,6 @@ from rest_framework.renderers import JSONRenderer, XMLRenderer, YAMLRenderer
 from restkit import Resource, RequestFailed, ResourceNotFound
 from django_roa.db import get_roa_headers
 from django_roa.db.exceptions import ROAException
-from future.utils import with_metaclass
 
 logger = logging.getLogger("django_roa")
 
@@ -178,7 +174,7 @@ class ROAModelBase(ModelBase):
                 new_class._base_manager = new_class._base_manager._copy_to_model(new_class)
 
         # Add all attributes to the class.
-        for obj_name, obj in list(attrs.items()):
+        for obj_name, obj in attrs.items():
             new_class.add_to_class(obj_name, obj)
 
         # All the fields of any type declared on this model
@@ -402,7 +398,7 @@ class ROAModelBase(ModelBase):
             return m
 
         # Add all attributes to the class.
-        for obj_name, obj in list(attrs.items()):
+        for obj_name, obj in attrs.items():
             new_class.add_to_class(obj_name, obj)
 
         # All the fields of any type declared on this model
@@ -566,10 +562,11 @@ class ROAModelBase(ModelBase):
         signals.class_prepared.send(sender=cls)
 
 
-class ROAModel(with_metaclass(ROAModelBase, models.Model)):
+class ROAModel(models.Model):
     """
     Model which access remote resources.
     """
+    __metaclass__ = ROAModelBase
 
     @classmethod
     def serializer(cls):
@@ -693,7 +690,7 @@ class ROAModel(with_metaclass(ROAModelBase, models.Model)):
                 org = cls
             else:
                 org = None
-            for parent, field in list(meta.parents.items()):
+            for parent, field in meta.parents.items():
                 # At this point, parent's primary key field may be unknown
                 # (for example, from administration form which doesn't fill
                 # this field). If so, fill it.
@@ -792,7 +789,7 @@ class ROAModel(with_metaclass(ROAModelBase, models.Model)):
                             filters=ROA_FILTERS, **ROA_SSL_ARGS)
 
         logger.debug(u"""Deleting  : "%s" through %s""" % \
-            (str(self), str(resource.uri)))
+            (unicode(self), unicode(resource.uri)))
 
         # Add serializer content_type
         headers = get_roa_headers()

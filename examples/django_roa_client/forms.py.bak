@@ -1,4 +1,3 @@
-from builtins import object
 from django import forms
 from django_roa_client.models import RemotePage, RemotePageWithRelations
 
@@ -8,10 +7,10 @@ class TestForm(forms.Form):
 
 
 class RemotePageForm(forms.ModelForm):
-    class Meta(object):
+    class Meta:
         model = RemotePage
 
 
 class RemotePageWithRelationsForm(forms.ModelForm):
-    class Meta(object):
+    class Meta:
         model = RemotePageWithRelations

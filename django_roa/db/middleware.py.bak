@@ -1,4 +1,3 @@
-from builtins import object
 from django_roa.db import set_roa_headers
 
 

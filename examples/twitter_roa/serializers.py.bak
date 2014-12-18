@@ -1,7 +1,5 @@
-from future import standard_library
-standard_library.install_aliases()
 import simplejson
-from io import StringIO
+from StringIO import StringIO
 
 from django.conf import settings
 from django.db import models
@@ -20,7 +18,7 @@ def Deserializer(stream_or_string, **options):
     """
     Deserialize a stream or string of JSON data.
     """
-    if isinstance(stream_or_string, str):
+    if isinstance(stream_or_string, basestring):
         stream = StringIO(stream_or_string)
     else:
         stream = stream_or_string
@@ -38,7 +36,7 @@ def Deserializer(stream_or_string, **options):
         m2m_data = {}
 
         # Handle each field
-        for (field_name, field_value) in obj.items():
+        for (field_name, field_value) in obj.iteritems():
             if isinstance(field_value, str):
                 field_value = smart_unicode(
                                 field_value,
