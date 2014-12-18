@@ -1,3 +1,4 @@
+future
 django-filter
 # django-piston
 -e hg+https://techdragon@bitbucket.org/techdragon/django-piston-python34-fixes/#egg=django-piston
