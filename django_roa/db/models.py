@@ -26,7 +26,11 @@ from django.core.serializers.python import Deserializer as PythonDeserializer, _
 
 from functools import update_wrapper
 
-from django.utils.encoding import force_unicode, smart_unicode
+if sys.version_info >= (3,0):
+    from django.utils.encoding import force_text, smart_text
+else:
+    from django.utils.encoding import force_unicode, smart_unicode
+
 from rest_framework.parsers import JSONParser, XMLParser, YAMLParser
 from rest_framework.renderers import JSONRenderer, XMLRenderer, YAMLRenderer
 
