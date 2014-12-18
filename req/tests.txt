@@ -1,7 +1,11 @@
 django-filter
-django-piston
+# django-piston
+-e hg+https://techdragon@bitbucket.org/techdragon/django-piston-python34-fixes/#egg=django-piston
+# ^-<- switched to my patchset/fork for piston 3.4 support
 djangorestframework
 http-parser
 restkit
 simplejson
 socketpool
+# wsgiref
+# ^-<- moved 'wsgiref' into setup.py since we dont need it for 2.7 or 3.4
