@@ -1,7 +1,6 @@
-from __future__ import absolute_import
 from django.contrib import admin
 from django_roa import ModelAdmin
-from .models import Tweet, User
+from models import Tweet, User
 
 class TweetAdmin(ModelAdmin):
     list_display = ('id', 'text', 'get_source_for_admin', 'get_user_link')

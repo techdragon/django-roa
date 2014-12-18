@@ -349,7 +349,7 @@ class RemoteQuerySet(query.QuerySet):
         assert bool(latest_by), "latest() requires either a field_name parameter or 'get_latest_by' in the model"
 
         self.query.order_by.append('-%s' % latest_by)
-        return next(self.iterator())
+        return self.iterator().next()
 
     def delete(self):
         """
