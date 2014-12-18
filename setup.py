@@ -9,10 +9,10 @@ except ImportError:
     ez_setup.use_setuptools()
     from setuptools import setup, find_packages
 
-install_requires = ['Django', 'restkit','simplejson', 'djangorestframework']
+install_requires = ['Django', 'restkit', 'simplejson', 'djangorestframework']
 
-if sys.version_info < (3,4):
-    install_requires.append('wsgiref')
+if sys.version_info < (3, 4):
+    install_requires + ['wsgiref']
 
 setup(
     name='django-roa',
